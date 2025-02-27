@@ -1,7 +1,7 @@
 @baseUrl = http://localhost:3000/api
 @authToken = {{login.response.body.token}}
 
-### Public - Test Auth Route
+### Test if Auth service is up
 GET {{baseUrl}}/auth/health
 # Expected: { "status": "Auth service is running" }
 
@@ -10,7 +10,7 @@ POST {{baseUrl}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "test@example.com",
+    "email": "newuser2@example.com",
     "password": "password123"
 }
 
@@ -20,7 +20,7 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "test@example.com",
+    "email": "newuser2@example.com",
     "password": "password123"
 }
 

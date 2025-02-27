@@ -1,20 +1,21 @@
 @baseUrl = http://localhost:3000/api
 @authToken = {{loginCustomer.response.body.token}}
 
-### Public - Test Customer Route
+### Test if Customer service is up
 GET {{baseUrl}}/customer/health
 # Expected: { "status": "Customer service is running" }
 
-### Login as Customer first
+### Login as Customer
 # @name loginCustomer
 POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "test@example.com",
+    "email": "newuser@example.com",
     "password": "password123"
 }
 
-### Customer Orders (Customer only)
+
+### Get Customer Orders (Protected)
 GET {{baseUrl}}/customer/orders
 Authorization: Bearer {{authToken}} 

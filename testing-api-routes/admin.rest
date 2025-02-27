@@ -1,14 +1,12 @@
 @baseUrl = http://localhost:3000/api
-@authToken = {{loginAdmin.response.body.token}}
 
 ### Test if API is working
 GET {{baseUrl}}/test
 
-### Public - Test Admin Route
+### Test if Admin service is up
 GET {{baseUrl}}/admin/health
-# Expected: { "status": "Admin service is running" }
 
-### Login as Super Admin first
+### Login as Super Admin
 # @name loginAdmin
 POST {{baseUrl}}/auth/login
 Content-Type: application/json
@@ -18,15 +16,22 @@ Content-Type: application/json
     "password": "password123"
 }
 
-### Admin Dashboard (Admin only)
+### Store token from login response
+@authToken = {{loginAdmin.response.body.token}}
+
+### Check login response
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{authToken}}
+
+### Access Admin Dashboard (Protected)
 GET {{baseUrl}}/admin/dashboard
 Authorization: Bearer {{authToken}}
 
-### Super Admin Settings (Super Admin only)
+### Access Admin Settings (Protected)
 POST {{baseUrl}}/admin/settings
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-    "setting": "value"
+    "setting": "test value"
 } 

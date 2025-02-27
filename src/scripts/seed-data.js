@@ -5,14 +5,22 @@ const logger = require("../utils/logger");
 
 const seedData = async () => {
   try {
-    // Create super admin
-    const superAdmin = await User.create({
-      email: "super@admin.com",
-      password: await bcrypt.hash("superadmin123", 10),
-      role: "super-admin",
-      is_verified: true,
-    });
-    logger.info("Super admin created:", superAdmin.email);
+    // Create users
+    const users = await User.bulkCreate([
+      {
+        email: "super@admin.com",
+        password: await bcrypt.hash("password123", 10),
+        role: "super-admin",
+        is_verified: true,
+      },
+      {
+        email: "newuser@example.com",
+        password: await bcrypt.hash("password123", 10),
+        role: "customer",
+        is_verified: true,
+      }
+    ]);
+    logger.info(`Created ${users.length} users:`, users.map(u => u.email).join(', '));
 
     // Create some categories
     const categories = await Category.bulkCreate([
