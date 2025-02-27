@@ -1,0 +1,13 @@
+click-and-collect-api/
+├── src/
+│   ├── config/
+│   │   └── express.js
+│   │   └── cors.js
+│   │   └── helmet.js
+│   │   └── rate-limit.js
+│   │   └── logger.js
+│   │   └── errorHandler.js
+│   └── app.js
+├── .env.example
+├── .gitignore
+└── package.json 
