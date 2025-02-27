@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:3000/api
+@authToken = {{loginAdmin.response.body.token}}
+
+### Test if API is working
+GET {{baseUrl}}/test
+
+### Public - Test Admin Route
+GET {{baseUrl}}/admin/health
+# Expected: { "status": "Admin service is running" }
+
+### Login as Super Admin first
+# @name loginAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "super@admin.com",
+    "password": "password123"
+}
+
+### Admin Dashboard (Admin only)
+GET {{baseUrl}}/admin/dashboard
+Authorization: Bearer {{authToken}}
+
+### Super Admin Settings (Super Admin only)
+POST {{baseUrl}}/admin/settings
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "setting": "value"
+} 

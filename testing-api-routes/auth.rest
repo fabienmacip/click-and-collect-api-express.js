@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:3000/api
+@authToken = {{login.response.body.token}}
+
+### Public - Test Auth Route
+GET {{baseUrl}}/auth/health
+# Expected: { "status": "Auth service is running" }
+
+### Register a new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+### Login user
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+### Get user profile (Protected route)
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{authToken}}
+
+### Login as Super Admin
+# @name loginAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "super@admin.com",
+    "password": "password123"
+} 
